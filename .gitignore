@@ -4,6 +4,11 @@
 # data
 *.npz
 check/
+*.pkl
+*.jpg
+data
+train/
+val
 ### JupyterNotebooks ###
 # gitignore template for Jupyter Notebooks
 # website: http://jupyter.org/
