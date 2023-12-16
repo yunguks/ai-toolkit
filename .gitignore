@@ -6,6 +6,8 @@
 check/
 *.pkl
 *.jpg
+*.png
+gen_imgs/
 data
 train/
 val
