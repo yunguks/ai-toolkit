@@ -5,8 +5,8 @@ import torchvision
 class MyModel(nn.Module):
     def __init__(self, dim_output=101):
         super(MyModel, self).__init__()
-        # self.resnet = torchvision.models.resnet18(pretrained=True)
-        self.resnet = torchvision.models.mobilenet_v3_large(pretrained=True)
+        self.resnet = torchvision.models.resnet18(pretrained=True)
+        # self.resnet = torchvision.models.mobilenet_v3_large(pretrained=True)
         # print(self.resnet)
         self.resnet.fc = nn.Linear(512, dim_output)
 

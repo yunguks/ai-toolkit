@@ -3,8 +3,10 @@ import torchvision
 import torch
 
 class conv(nn.Module):
-    def __init__(self,in_c,out_c,padding=1,dropout=0):
+    def __init__(self,in_c,out_c,padding=1,dropout=0,skip=False):
         super(conv,self).__init__()
+
+        self.skip = skip
 
         self.conv = nn.Sequential(
             nn.Conv2d(in_c, out_c, 3, 1, padding),
@@ -15,23 +17,25 @@ class conv(nn.Module):
             self.conv.append(nn.Dropout(dropout))
 
     def forward(self,x):
+        if self.skip:
+            return nn.functional.relu(self.conv(x) + x)
         return self.conv(x)
     
 
 class Block(nn.Module):
-    def __init__(self, in_c, out_c, dropout=0, repeat=1):
+    def __init__(self, in_c, out_c, dropout=0, repeat=1, skip=True):
         super(Block, self).__init__()
 
         layers = []
         for _ in range(repeat):
-            layers.append(conv(in_c,out_c,dropout = dropout))
+            layers.append(conv(in_c,out_c,dropout = dropout,skip=skip))
         
         self.layers = nn.Sequential(*layers)
     
     def forward(self, x):
 
-        return self.layers(x)
-    
+        return nn.functional.relu(x+self.layers(x))
+
 
 class MyModel(nn.Module):
     def __init__(self, drop_out=0.5):
