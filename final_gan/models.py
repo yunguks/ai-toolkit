@@ -75,7 +75,7 @@ class Discriminator(nn.Module):
     
     
 class Encoder(nn.Module):
-    def __init__(self,  letent_dim=100):
+    def __init__(self,  letent_dim=2):
         super(Encoder, self).__init__()
         
         self.layers = nn.Sequential(
@@ -93,7 +93,7 @@ class Encoder(nn.Module):
         return mean, logvar
     
 class Decoder(nn.Module):
-    def __init__(self, letent_dim=100):
+    def __init__(self, letent_dim=2):
         super(Decoder, self).__init__()
         
         self.layers = nn.Sequential(
